@@ -1,0 +1,6 @@
+pygame
+PyOpenGL
+numpy
+scipy
+gymnasium
+stable-baselines3

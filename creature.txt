@@ -1,0 +1,62 @@
+# 다리
+# 허벅지
+cube1 = Cube(width=1.0, height=2.0, depth=1.0, positions=[0, 4.5, 0], rotation=[0, 0, 0], color=(1.0, 0.0, 0.0, 1.0))
+# 종아리
+cube2 = Cube(width=1.0, height=2.0, depth=1.0, positions=[0, 2.5, 0], rotation=[0, 0, 0], color=(0.0, 1.0, 0.0, 1.0))
+# 발    
+cube3 = Cube(width=2.0, height=1.0, depth=1.0, positions=[0.5, 1.0, 0], rotation=[0, 0, 0], color=(0.2, 0.5, 0.84, 1.0))    
+
+## Constraints
+world.simulation.add_constraint(DistanceConstraint(cube1, 5, cube2, 6, rest_length=0.0, compliance=hinge_comp))
+world.simulation.add_constraint(DistanceConstraint(cube1, 1, cube2, 2, rest_length=0.0, compliance=hinge_comp))
+world.simulation.add_constraint(DistanceConstraint(cube2, 4, cube3, 7, rest_length=0.0, compliance=hinge_comp))
+world.simulation.add_constraint(DistanceConstraint(cube2, 0, cube3, 3, rest_length=0.0, compliance=hinge_comp))
+
+# 2족보행
+## Body
+cube1 = Cube(width=2.0, height=1.0, depth=1.0, positions=[0, 4.5, 0.5], rotation=[0, 0, 0], color=(0.5, 0.0, 0.0, 1.0))    
+## Front_Leg
+cube3 = Cube(width=0.6, height=1.0, depth=1.0, positions=[0.7, 3.5, 0.5], rotation=[0, 0, 0], color=(0.2, 0.5, 0.44, 1.0))    
+## Back_Leg
+cube4 = Cube(width=0.6, height=1.0, depth=1.0, positions=[-0.7, 3.5, 0.5], rotation=[0, 0, 0], color=(0.2, 0.5, 0.44, 1.0))    
+
+## Constraints
+world.simulation.add_constraint(DistanceConstraint(cube1, 5, cube3, 6, rest_length=0.0, compliance=hinge_comp))
+world.simulation.add_constraint(DistanceConstraint(cube1, 1, cube3, 2, rest_length=0.0, compliance=hinge_comp))
+world.simulation.add_constraint(DistanceConstraint(cube1, 4, cube4, 7, rest_length=0.0, compliance=hinge_comp))
+world.simulation.add_constraint(DistanceConstraint(cube1, 0, cube4, 3, rest_length=0.0, compliance=hinge_comp))
+
+
+# 4족보행
+## Right Body
+cube1 = Cube(width=2.0, height=1.0, depth=1.0, positions=[0, 4.5, 0.5], rotation=[0, 0, 0], color=(0.5, 0.0, 0.0, 1.0))
+## Left Body
+cube2 = Cube(width=2.0, height=1.0, depth=1.0, positions=[0, 4.5, -0.5], rotation=[0, 0, 0], color=(1.0, 0.0, 0.0, 1.0))
+
+## R_Front_Leg
+cube3 = Cube(width=0.6, height=1.0, depth=1.0, positions=[0.7, 3.5, 0.5], rotation=[0, 0, 0], color=(0.2, 0.5, 0.44, 1.0))    
+## R_Back_Leg
+cube4 = Cube(width=0.6, height=1.0, depth=1.0, positions=[-0.7, 3.5, 0.5], rotation=[0, 0, 0], color=(0.2, 0.5, 0.44, 1.0))    
+## L_Front_Leg
+cube5 = Cube(width=0.6, height=1.0, depth=1.0, positions=[0.7, 3.5, -0.5], rotation=[0, 0, 0], color=(0.2, 0.5, 0.84, 1.0))    
+## L_Back_Leg
+cube6 = Cube(width=0.6, height=1.0, depth=1.0, positions=[-0.7, 3.5, -0.5], rotation=[0, 0, 0], color=(0.2, 0.5, 0.84, 1.0))    
+
+## Constraints
+### Body
+world.simulation.add_constraint(DistanceConstraint(cube1, 0, cube2, 4, rest_length=0.0, compliance=hinge_comp))
+world.simulation.add_constraint(DistanceConstraint(cube1, 1, cube2, 5, rest_length=0.0, compliance=hinge_comp))
+world.simulation.add_constraint(DistanceConstraint(cube1, 2, cube2, 6, rest_length=0.0, compliance=hinge_comp))
+world.simulation.add_constraint(DistanceConstraint(cube1, 3, cube2, 7, rest_length=0.0, compliance=hinge_comp))
+
+### Right Body-Leg
+world.simulation.add_constraint(DistanceConstraint(cube1, 5, cube3, 6, rest_length=0.0, compliance=hinge_comp))
+world.simulation.add_constraint(DistanceConstraint(cube1, 1, cube3, 2, rest_length=0.0, compliance=hinge_comp))
+world.simulation.add_constraint(DistanceConstraint(cube1, 4, cube4, 7, rest_length=0.0, compliance=hinge_comp))
+world.simulation.add_constraint(DistanceConstraint(cube1, 0, cube4, 3, rest_length=0.0, compliance=hinge_comp))
+
+### Left Body-Leg
+world.simulation.add_constraint(DistanceConstraint(cube2, 5, cube5, 6, rest_length=0.0, compliance=hinge_comp))
+world.simulation.add_constraint(DistanceConstraint(cube2, 1, cube5, 2, rest_length=0.0, compliance=hinge_comp))
+world.simulation.add_constraint(DistanceConstraint(cube2, 4, cube6, 7, rest_length=0.0, compliance=hinge_comp))
+world.simulation.add_constraint(DistanceConstraint(cube2, 0, cube6, 3, rest_length=0.0, compliance=hinge_comp))
