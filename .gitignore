@@ -1,4 +1,4 @@
 **/__pycache__/
-*/logs/*
-*/tb_logs/*
+**/logs/
+**/tb_logs/
 my_venv
