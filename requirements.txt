@@ -4,3 +4,5 @@ numpy
 scipy
 gymnasium
 stable-baselines3
+pyyaml
+tensorboard
