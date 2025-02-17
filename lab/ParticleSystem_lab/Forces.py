@@ -45,7 +45,6 @@ class Spring(Force):
         if length < 1e-6:
             return
         
-        
         l_dot = 0  # TODO: Compute l_dot 
         f = 0      # TODO: Compute force
          

@@ -48,6 +48,7 @@ def initWorld(world):
     #  4-------5       
     # ---------------------------------
     cube1 = None # TODO: Create Cube
+    # cube1 = Cube(width=1.0, height=2.0, depth=1.0, positions=[0, 4.5, 0], rotation=[0, 0, 0], color=(1.0, 0.0, 0.0, 1.0))
     world.add_object(cube1)
     
 

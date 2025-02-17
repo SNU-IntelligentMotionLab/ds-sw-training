@@ -16,7 +16,7 @@ def main():
     # 0. Particle System, Integrator, Renderer
     # ===========================
     ps = ParticleSystem()
-    ps.integrator = Midpoint()
+    ps.integrator = Euler()
     ps.renderer = Renderer2D(ps)
      
     # =============================
@@ -68,9 +68,7 @@ def main():
     k_s = 100
     k_d = 2
     for i, j in ps.edges:
-        # ps.add_force(Force()) # TODO : Add Spring Force
-        
-        ps.add_force(Spring(ps.particles[i], ps.particles[j], k_s, k_d, spacing))
+        ps.add_force(Force()) # TODO : Add Spring Force
     
     
     # -----------------------------
