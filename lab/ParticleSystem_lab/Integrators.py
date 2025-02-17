@@ -59,4 +59,43 @@ class RK4(Integrator):
         # -----------------------------
         # TODO (Numerical Method)
         # -----------------------------
-        pass
+        # Save initial position and velocity
+        init_position = [p.position.copy() for p in particle_system.particles]
+        init_velocity = [p.velocity.copy() for p in particle_system.particles]
+        
+        # Step 1: Compute k1
+        particle_system.evaluate_derivative()
+        k1_v = [p.force / p.mass for p in particle_system.particles]
+        k1_x = [p.velocity.copy() for p in particle_system.particles]
+        
+        # Step 2: Compute k2
+        for i, p in enumerate(particle_system.particles):
+            pass
+            # p.position = # TODO 
+            # p.velocity = # TODO
+        particle_system.evaluate_derivative()
+        k2_v = [p.force / p.mass for p in particle_system.particles]
+        k2_x = [p.velocity.copy() for p in particle_system.particles]
+        
+        # Step 3: Compute k3
+        for i, p in enumerate(particle_system.particles):
+            pass
+            # p.position = # TODO
+            # p.velocity = # TODO
+        particle_system.evaluate_derivative()
+        k3_v = [p.force / p.mass for p in particle_system.particles]
+        k3_x = [p.velocity.copy() for p in particle_system.particles]
+        
+        # Step 4: Compute k4
+        for i, p in enumerate(particle_system.particles):
+            pass
+            # p.position = # TODO 
+            # p.velocity = # TODO 
+        particle_system.evaluate_derivative()
+        k4_v = [p.force / p.mass for p in particle_system.particles]
+        k4_x = [p.velocity.copy() for p in particle_system.particles]
+        
+        # Final update
+        for i, p in enumerate(particle_system.particles):
+            p.position = init_position[i] + (time_step / 6) * (k1_x[i] + 2 * k2_x[i] + 2 * k3_x[i] + k4_x[i])
+            p.velocity = init_velocity[i] + (time_step / 6) * (k1_v[i] + 2 * k2_v[i] + 2 * k3_v[i] + k4_v[i])

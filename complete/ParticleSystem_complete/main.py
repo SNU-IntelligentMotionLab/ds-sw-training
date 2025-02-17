@@ -16,7 +16,7 @@ def main():
     # 0. Particle System, Integrator, Renderer
     # ===========================
     ps = ParticleSystem()
-    ps.integrator = Midpoint()
+    ps.integrator = Euler()
     ps.renderer = Renderer2D(ps)
      
     # =============================
