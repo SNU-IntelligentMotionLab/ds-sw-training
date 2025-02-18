@@ -22,7 +22,7 @@ from World import World, initWorld
 import time
 import yaml
 CONFIG_FILE = "config.yaml"
-USER_TORQUE_MODE = True
+USER_TORQUE_MODE = False
 
 ## World having step_(action) attribute
 class World_(World):
