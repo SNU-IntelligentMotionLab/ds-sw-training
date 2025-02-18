@@ -190,7 +190,7 @@ class PBDSimulation:
         # - Find the vertices in contact with the ground
         # - Generate Ground Collision Constraints
         # --------------------------------------------------
-        for obj in self.world.get_objects()[:-1]:
+        for obj in self.world.get_objects():
             contact_vertices = np.where(obj.curr_pos[:, 1] < 0)[0]
             for id in contact_vertices:
                 contacts.append(GroundCollisionConstraint(obj, id, compliance=self.collision_compliance))

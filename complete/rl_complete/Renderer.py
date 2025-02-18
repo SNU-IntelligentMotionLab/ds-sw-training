@@ -35,6 +35,7 @@ class Renderer:
 
         self.tracking = False
         self.user_torque = np.array([0.0, 0.0])
+        self.acc_reward =  0.0
 
     def handle_events(self):
         for event in pygame.event.get():
@@ -49,6 +50,8 @@ class Renderer:
                 
                 if event.key == K_r:
                     self.world.playing = False
+                    self.user_torque *= 0.0
+                    self.acc_reward *= 0.0
                     self.world.reset()
                         
                 if event.key == K_e:
@@ -142,6 +145,8 @@ class Renderer:
         sim_time = self.world.sim_time
         if sim_time is not None:
             self.render_text(f"Simulation Time: {format_time(sim_time)}", self.screen.get_width() - 250, self.screen.get_height() - 20)
+
+        self.render_text(f"Total reward: {self.acc_reward:.2f}", self.screen.get_width() - 250, self.screen.get_height() - 40)
 
         glPopMatrix()
         glMatrixMode(GL_PROJECTION)

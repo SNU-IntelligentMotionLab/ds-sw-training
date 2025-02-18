@@ -19,7 +19,7 @@ import os
 from stable_baselines3.common.callbacks import CheckpointCallback
 import argparse
 from World import World, initWorld
-
+import time
 import yaml
 CONFIG_FILE = "config.yaml"
 
@@ -77,6 +77,7 @@ class WorldEnv(gym.Env):
         cube1_center = self.compute_center_pos(0)
 
         reward = 10.0*(cube1_center[0]-self.prev_cube1_center[0])
+        self.world.renderer.acc_reward += reward
         return reward
     
     def is_terminal_state(self):
@@ -140,16 +141,31 @@ def test(env, model):
     world = env.world
 
     obs = env.get_obs()
-    while world.running:
-        pygame.time.wait(10)
-        action, _ = model.predict(obs, deterministic=False)
-        world.handle_events()
-        #obs, reward, terminated, truncated, info = env.step(world.renderer.user_torque/500.0)
-        obs, reward, terminated, truncated, info = env.step(action)
 
-        if terminated:
-            env.reset()
-            obs = env.get_obs()
+    # Time tracking
+    accumulated_time = 0.0
+    last_sim_time = time.time()
+    SIM_TIME_STEP = world.simulation.time_step  
+
+
+    while world.running:
+        now = time.time()
+        elapsed = now - last_sim_time
+        last_sim_time = now
+        accumulated_time += elapsed
+
+        while accumulated_time >= SIM_TIME_STEP:
+            action, _ = model.predict(obs, deterministic=True)
+            world.handle_events()
+            #obs, reward, terminated, truncated, info = env.step(world.renderer.user_torque/500.0)
+            obs, reward, terminated, truncated, info = env.step(action)
+
+            if terminated:
+                env.reset()
+                obs = env.get_obs()
+
+            accumulated_time -= SIM_TIME_STEP 
+
         world.render()
     
     pygame.quit()

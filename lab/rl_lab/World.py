@@ -13,16 +13,16 @@ def initWorld(world):
         world=world,
         gravity=(0, -9.8, 0),
         time_step=1/30,
-        substeps=4
+        substeps=2
         
     )
     
     world.renderer = Renderer(
         world=world,
         camera=OrbitCamera(
-            distance=27.0, 
-            theta=51.0, 
-            phi=73.0, 
+            distance=70.0, 
+            theta=80.0, 
+            phi=70.0, 
         )
     )
     
@@ -56,7 +56,8 @@ def initWorld(world):
     world.add_object(cube3)
     
 
-    cube4 = Cube(width=30.0, height=30.0, depth=30.0, positions=[0.0, 15+122.5, 0], rotation=[0, 0, 0], color=(0.0, 0.0, 0.0, 1.0))    
+    cube4 = Cube(width=2.0, height=10.0, depth=30.0, positions=[19.0, 5+122.5, 0], rotation=[0, 0, 0], color=(0.3, 0.3, 0.3, 1.0))    
+    cube4.restitution = 1.0
     world.add_object(cube4)
     
 
@@ -100,15 +101,15 @@ def initWorld(world):
 
     # -------------------------------
     # d.  Joint limit constraint
-    #--------------------------------
-    world.simulation.add_constraint(MinDistanceConstraint(cube1, 6, cube2, 5, min_length=3.0, compliance=hinge_comp))
-    world.simulation.add_constraint(MinDistanceConstraint(cube1, 2, cube2, 1, min_length=3.0, compliance=hinge_comp))
+    # #--------------------------------
+    # world.simulation.add_constraint(MinDistanceConstraint(cube1, 6, cube2, 5, min_length=3.0, compliance=hinge_comp))
+    # world.simulation.add_constraint(MinDistanceConstraint(cube1, 2, cube2, 1, min_length=3.0, compliance=hinge_comp))
     
-    world.simulation.add_constraint(MinDistanceConstraint(cube2, 1, cube3, 0, min_length=1.0, compliance=hinge_comp))
-    world.simulation.add_constraint(MinDistanceConstraint(cube2, 5, cube3, 4, min_length=1.0, compliance=hinge_comp))
+    # world.simulation.add_constraint(MinDistanceConstraint(cube2, 1, cube3, 0, min_length=1.0, compliance=hinge_comp))
+    # world.simulation.add_constraint(MinDistanceConstraint(cube2, 5, cube3, 4, min_length=1.0, compliance=hinge_comp))
 
-    world.simulation.add_constraint(MinDistanceConstraint(cube2, 7, cube3, 4, min_length=1.0, compliance=hinge_comp))
-    world.simulation.add_constraint(MinDistanceConstraint(cube2, 3, cube3, 0, min_length=1.0, compliance=hinge_comp))
+    # world.simulation.add_constraint(MinDistanceConstraint(cube2, 7, cube3, 4, min_length=1.0, compliance=hinge_comp))
+    # world.simulation.add_constraint(MinDistanceConstraint(cube2, 3, cube3, 0, min_length=1.0, compliance=hinge_comp))
 
     return world
 

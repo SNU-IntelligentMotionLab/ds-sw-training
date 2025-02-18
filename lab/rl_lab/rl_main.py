@@ -22,6 +22,7 @@ from World import World, initWorld
 
 import yaml
 CONFIG_FILE = "config.yaml"
+import time
 
 ## World having step_(action) attribute
 class World_(World):
@@ -45,7 +46,7 @@ class WorldEnv(gym.Env):
 
         self.world = world
         self.action_space = spaces.Box(low=-500.0, high=500.0, shape=(2,), dtype=np.float32)
-        self.observation_space = spaces.Box(low=-100.0, high=100.0, shape=(1,), dtype=np.float32)
+        self.observation_space = spaces.Box(low=-100.0, high=100.0, shape=(2,), dtype=np.float32)
         self.max_epi_steps = 300
         self.cur_epi_step = 0
 
@@ -75,7 +76,7 @@ class WorldEnv(gym.Env):
         # ---------------------------------
         cube1_center = self.compute_center_pos(0)
         reward = cube1_center[0]
-
+        self.world.renderer.acc_reward += reward
         return reward
     
     def is_terminal_state(self):
@@ -107,6 +108,7 @@ class WorldEnv(gym.Env):
         # ---------------------------------
         cube1_center = self.compute_center_pos(0)
         obs = [cube1_center[0]]
+        obs = np.append(obs, [cube1_center[1]])
 
         return np.array(obs, dtype=np.float32)
 
@@ -116,17 +118,31 @@ def test(env, model):
     world = env.world
 
     obs = env.get_obs()
-    
-    while world.running:
-        pygame.time.wait(10)
-        action, _ = model.predict(obs, deterministic=False)
-        world.handle_events()
-        #obs, reward, terminated, truncated, info = env.step(world.renderer.user_torque/500.0)
-        obs, reward, terminated, truncated, info = env.step(action)
 
-        if terminated:
-            env.reset()
-            obs = env.get_obs()
+    # Time tracking
+    accumulated_time = 0.0
+    last_sim_time = time.time()
+    SIM_TIME_STEP = world.simulation.time_step  
+
+
+    while world.running:
+        now = time.time()
+        elapsed = now - last_sim_time
+        last_sim_time = now
+        accumulated_time += elapsed
+
+        while accumulated_time >= SIM_TIME_STEP:
+            action, _ = model.predict(obs, deterministic=True)
+            world.handle_events()
+            #obs, reward, terminated, truncated, info = env.step(world.renderer.user_torque/500.0)
+            obs, reward, terminated, truncated, info = env.step(action)
+
+            if terminated:
+                env.reset()
+                obs = env.get_obs()
+
+            accumulated_time -= SIM_TIME_STEP 
+
         world.render()
     
     pygame.quit()

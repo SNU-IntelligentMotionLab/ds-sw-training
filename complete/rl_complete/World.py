@@ -20,9 +20,9 @@ def initWorld(world):
     world.renderer = Renderer(
         world=world,
         camera=OrbitCamera(
-            distance=27.0, 
-            theta=51.0, 
-            phi=73.0, 
+            distance=70.0, 
+            theta=80.0, 
+            phi=70.0, 
         )
     )
     
@@ -55,8 +55,8 @@ def initWorld(world):
     cube3 = Cube(width=2.0, height=1.0, depth=1.0, positions=[0.5, 1.0, 0], rotation=[0, 0, 0], color=(0.2, 0.5, 0.84, 1.0))    
     world.add_object(cube3)
     
-
-    cube4 = Cube(width=30.0, height=30.0, depth=30.0, positions=[0.0, 15+122.5, 0], rotation=[0, 0, 0], color=(0.0, 0.0, 0.0, 1.0))    
+    cube4 = Cube(width=2.0, height=10.0, depth=30.0, positions=[19.0, 5+122.5, 0], rotation=[0, 0, 0], color=(0.3, 0.3, 0.3, 1.0))    
+    cube4.restitution = 1.0
     world.add_object(cube4)
     
 
