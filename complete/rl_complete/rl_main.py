@@ -22,6 +22,7 @@ from World import World, initWorld
 import time
 import yaml
 CONFIG_FILE = "config.yaml"
+USER_TORQUE_MODE = True
 
 ## World having step_(action) attribute
 class World_(World):
@@ -157,8 +158,10 @@ def test(env, model):
         while accumulated_time >= SIM_TIME_STEP:
             action, _ = model.predict(obs, deterministic=True)
             world.handle_events()
-            #obs, reward, terminated, truncated, info = env.step(world.renderer.user_torque/500.0)
-            obs, reward, terminated, truncated, info = env.step(action)
+            if USER_TORQUE_MODE:
+                obs, reward, terminated, truncated, info = env.step(world.renderer.user_torque/500.0)
+            else:
+                obs, reward, terminated, truncated, info = env.step(action)
 
             if terminated:
                 env.reset()

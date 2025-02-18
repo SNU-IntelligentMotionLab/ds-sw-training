@@ -62,9 +62,11 @@ class Renderer:
                     self.world.simulation.detach_all()
                     
                 if event.key == K_q:
-                   self.user_torque -= 10.0
+                   self.user_torque -= 20.0
+                   print(self.user_torque)
                 if event.key == K_w:
-                   self.user_torque += 10.0
+                   self.user_torque += 20.0
+                   print(self.user_torque)
 
                 if event.key == K_f:
                     self.tracking = not self.tracking

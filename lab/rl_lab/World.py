@@ -74,7 +74,7 @@ def initWorld(world):
     # a. Attach Constraint
     # TODO (2) : Add Attach Constraints
     # ---------------------------------
-    #world.simulation.add_constraint(AttachmentConstraint(cube1, 2, cube1.curr_pos[2], compliance=attach_comp))
+    world.simulation.add_constraint(AttachmentConstraint(cube1, 2, cube1.curr_pos[2], compliance=attach_comp))
 
 
     # ---------------------------------
