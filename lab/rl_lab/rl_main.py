@@ -187,7 +187,7 @@ def main():
     cfg_ppo_kwargs = config.get("ppo_kwargs", {})
 
 
-    world = initWorld(World_())
+    world = initWorld(World_(), args.train)
     env = WorldEnv(world)
 
     # The value on the side is the default value when the 'key' does not exit.

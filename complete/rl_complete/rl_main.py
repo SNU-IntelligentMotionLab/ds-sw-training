@@ -210,7 +210,7 @@ def main():
     cfg_ppo_kwargs = config.get("ppo_kwargs", {})
 
 
-    world = initWorld(World_())
+    world = initWorld(World_(), args.train)
     env = WorldEnv(world)
 
 
